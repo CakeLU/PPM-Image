@@ -185,9 +185,28 @@ public class PPM extends Image {
         }
     }
 
-    /*public abstract void negate_red();
-    public abstract void negate_green();
-    public abstract void negate_blue();*/
+    public void negate_red() {
+        for (int i = 0; i < pixels.length; i++) {
+            for (int j = 0; j < pixels[0].length; j++) {
+                pixels[i][j][0] = (255 - pixels[i][j][0]);
+            }
+        }
+    }
+
+    public void negate_green() {
+        for (int i = 0; i < pixels.length; i++) {
+            for (int j = 0; j < pixels[0].length; j++) {
+                pixels[i][j][1] = (255 - pixels[i][j][1]);
+            }
+        }
+    }
+    public void negate_blue() {
+        for (int i = 0; i < pixels.length; i++) {
+            for (int j = 0; j < pixels[0].length; j++) {
+                pixels[i][j][2] = (255 - pixels[i][j][2]);
+            }
+        }
+    }
 
     // Converts image to grey scale by setting all RGB values to average of RGB values
     public void grey_scale() {
