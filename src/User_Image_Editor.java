@@ -55,7 +55,7 @@ public class User_Image_Editor {
             }
         } while (invalidInput);
 
-        // Tests to ensure proper user variables
+        // Tests to ensure proper user variables are used
         // System.out.println(userInputFile);
         // System.out.println(userOutputFile);
 
