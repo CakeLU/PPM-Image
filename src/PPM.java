@@ -10,7 +10,7 @@ public class PPM extends Image {
     // Attributes
     int[][][] pixels;
 
-    // Default Constructor
+    // Default Constructor (This constructor just reads from a PPMTest.ppm file)
     public PPM() {
         try {
             Scanner sc = new Scanner(new File("PPMTest.ppm"));
@@ -36,6 +36,7 @@ public class PPM extends Image {
         }
     }
 
+    // Overloading Constructor
     public PPM(String userFile) {
         try {
             Scanner sc = new Scanner(new File(userFile));
@@ -185,6 +186,7 @@ public class PPM extends Image {
         }
     }
 
+    // Takes the reds and negates them (chooses opposite value or 255 - current value)
     public void negate_red() {
         for (int i = 0; i < pixels.length; i++) {
             for (int j = 0; j < pixels[0].length; j++) {
@@ -193,6 +195,7 @@ public class PPM extends Image {
         }
     }
 
+    // Takes the greens and negates them (chooses opposite value or 255 - current value)
     public void negate_green() {
         for (int i = 0; i < pixels.length; i++) {
             for (int j = 0; j < pixels[0].length; j++) {
@@ -200,6 +203,8 @@ public class PPM extends Image {
             }
         }
     }
+
+    // Takes the blues and negates them (chooses opposite value or 255 - current value)
     public void negate_blue() {
         for (int i = 0; i < pixels.length; i++) {
             for (int j = 0; j < pixels[0].length; j++) {
