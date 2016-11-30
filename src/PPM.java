@@ -13,7 +13,7 @@ public class PPM extends Image {
     // Default Constructor (This constructor just reads from a PPMTest.ppm file)
     public PPM() {
         try {
-            Scanner sc = new Scanner(new File("PPMTest.ppm"));
+            Scanner sc = new Scanner(new File("cake.ppm"));
             magic = sc.next();
             width = sc.nextInt();
             height = sc.nextInt();
@@ -48,14 +48,14 @@ public class PPM extends Image {
 
             for (int i = 0; i < pixels.length; i++) {
                 for (int j = 0; j < pixels[0].length; j++) {
-                    System.out.print("{ ");
+//                    System.out.print("{ ");
                     for (int k = 0; k < 3; k++) {
                         pixels[i][j][k] = sc.nextInt();
-                        System.out.print(pixels[i][j][k] + " ");
+//                        System.out.print(pixels[i][j][k] + " ");
                     }
-                    System.out.print("} ");
+//                    System.out.print("} ");
                 }
-                System.out.println();
+//                System.out.println();
             }
         } catch (FileNotFoundException e) {
             System.out.println("The file was not found: ");
@@ -109,7 +109,7 @@ public class PPM extends Image {
                 for (int k = 0; k < 3; k++) {
                     System.out.print(pixels[i][j][k] + " ");
                 }
-                System.out.print("}");
+                System.out.print("} ");
             }
             System.out.println();
         }
@@ -256,6 +256,50 @@ public class PPM extends Image {
         for (int i = 0; i < pixels.length; i++) {
             for (int j = 0; j < pixels[0].length; j++) {
                 pixels[i][j][2] = 0;
+            }
+        }
+    }
+
+    // Takes each RGB value and makes it 255 or 0 dependent on the current value
+    public void extreme_contrast() {
+        for (int i = 0; i < pixels.length; i++) {
+            for (int j = 0; j < pixels[0].length; j++) {
+                for (int k = 0; k < 2; k++) {
+                    if (pixels[i][j][k] > 127) {
+                        pixels[i][j][k] = 255;
+                    }
+
+                    else {
+                        pixels[i][j][k] = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    // Adds a random number to every RGB value within the 0-255 boundary
+    public void random_noise(int userNum) {
+        for (int i = 0; i < pixels.length; i++) {
+            for (int j = 0; j < pixels[0].length; j++) {
+                for (int k = 0; k < 3; k ++) {
+                    int randNum = (int) (Math.random() * userNum) + 1;
+                    double posOrNeg = Math.random();
+                    if (posOrNeg < 0.5) {
+                        pixels[i][j][k] += randNum;
+
+                        if (pixels[i][j][k] > 255) {
+                            pixels[i][j][k] = 255;
+                        }
+                    }
+                    else {
+                        pixels[i][j][k] -= randNum;
+                        if (pixels[i][j][k] < 0) {
+                            pixels[i][j][k] = 0;
+                        }
+                    }
+
+
+                }
             }
         }
     }

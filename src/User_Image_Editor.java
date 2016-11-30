@@ -1,3 +1,4 @@
+import java.io.PrintWriter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -64,12 +65,13 @@ public class User_Image_Editor {
         System.out.println("[1]  convert to greyscale [2]  flip horizontally");
         System.out.println("[3]  negative of red [4]  negative of green [5]  negative of blue");
         System.out.println("[6]  just the reds [7]  just the greens [8]  just the blues");
+        System.out.println("[9]  extreme contrast [10]  random noise");
         System.out.println();
 
-        boolean[] userFunctionArray = new boolean[8];
+        boolean[] userFunctionArray = new boolean[10];
         String yesOrNo = "";
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 10; i++) {
 
             do {
                 System.out.print("Do you want [" + (i + 1) + "]? (y/n) ");
@@ -106,6 +108,8 @@ public class User_Image_Editor {
         }*/
 
         PPM userImage = new PPM(userInputFile);
+
+//        userImage.printPixels();
 
         // Greyscale
         if (userFunctionArray[0]) {
@@ -149,5 +153,73 @@ public class User_Image_Editor {
             userImage.flatten_green();
             userImage.flatten_red();
         }
+
+        // Extreme contrast
+        if (userFunctionArray[8]) {
+            userImage.extreme_contrast();
+        }
+
+        // Random noise
+        if (userFunctionArray[9]) {
+            int userNum = 0;
+
+            do {
+                System.out.print("What random number would you like to add to each RGB value? (0-255) ");
+                invalidInput = false;
+
+                try {
+                    userNum = sc.nextInt();
+                    if (userNum < 0 || userNum > 255) {
+                        throw new IllegalArgumentException();
+                    }
+
+                    if (!(userNum == (int) userNum)) {
+                        throw new IllegalArgumentException();
+                    }
+                }
+
+                catch (Exception e) {
+                    System.out.println("There was an error. Be sure you're inputting an integer between 0 and 255!");
+                    invalidInput = true;
+                }
+            } while (invalidInput);
+
+            userImage.random_noise(userNum);
+        }
+
+//        userImage.printPixels();
+
+        // PrintWriter object will take the adjusted image and write it to the specified user output file
+        try {
+            PrintWriter printWriter = new PrintWriter(userOutputFile, "UTF-8");
+            printWriter.println(userImage.getMagic());
+//            printWriter.println();
+            printWriter.println(userImage.getWidth() + " " + userImage.getHeight());
+//            printWriter.println();
+            printWriter.println(userImage.getDepth());
+
+            int[][][] pixels = userImage.getPixels();
+
+            for (int i = 0; i < userImage.getHeight(); i++) {
+                for (int j = 0; j < userImage.getWidth(); j++) {
+                    for (int k = 0; k < 3; k++) {
+                        printWriter.print(pixels[i][j][k] + " ");
+                    }
+                }
+                printWriter.println();
+            }
+
+            printWriter.close();
+        }
+
+        catch (Exception e) {
+            System.out.println(e);
+            System.out.print("In other words... SOMETHING BROKE! Dang it Billy...");
+        }
+
+        PPM outputTest = new PPM("PPMAdjusted.ppm");
+
+        outputTest.printPixels();
+
     }
 }
