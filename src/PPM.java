@@ -4,7 +4,16 @@ import java.util.Scanner;
 
 /**
  * Created by ss2sa on 11/15/2016.
+ * This is the PPM.java class which is used by the User_Image_Editor.java class.
+ * PPM.java contains all of the constructors and functions used to create and manipulate the PPM image objects.
+ * All getters, setters, and functions for PPM.java are in this class
  */
+
+/*  Though it is not necessarily needed, this class extends the abstract Image parent class.
+    This was done for potentially adding PGM image and other image file format programs to all
+    implement the same abstract methods as Image.java
+*/
+
 public class PPM extends Image {
 
     // Attributes
