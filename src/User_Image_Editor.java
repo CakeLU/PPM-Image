@@ -4,7 +4,11 @@ import java.util.Scanner;
 
 /**
  * Created by ss2sa on 11/28/2016.
+ * This program allows a user to take a PPM image file and manipulate it based on the provided functions below.
+ * This program only contains the user interface. For all functions and object characteristics, see PPM.java.
+ * This program contains file manipulation. When the user provides an output file, it will write to it, or overwrite it if it is already present.
  */
+
 public class User_Image_Editor {
 
     public static void main(String[] args) {
@@ -56,10 +60,6 @@ public class User_Image_Editor {
             }
         } while (invalidInput);
 
-        // Tests to ensure proper user variables are used
-        // System.out.println(userInputFile);
-        // System.out.println(userOutputFile);
-
         System.out.println();
         System.out.println("Here are your choices:");
         System.out.println("[1]  convert to greyscale [2]  flip horizontally");
@@ -73,6 +73,7 @@ public class User_Image_Editor {
 
         for (int i = 0; i < 10; i++) {
 
+            // See above do-while loops
             do {
                 System.out.print("Do you want [" + (i + 1) + "]? (y/n) ");
                 invalidInput = false;
@@ -101,11 +102,6 @@ public class User_Image_Editor {
             }
 
         }
-
-        // Test to ensure that array is properly storing true and false values
-        /*for (int i = 0; i < 8; i ++) {
-            System.out.println(userFunctionArray[i]);
-        }*/
 
         PPM userImage = new PPM(userInputFile);
 
@@ -163,6 +159,7 @@ public class User_Image_Editor {
         if (userFunctionArray[9]) {
             int userNum = 0;
 
+            // See above do-while loops
             do {
                 System.out.print("What random number would you like to add to each RGB value? (0-255) ");
                 invalidInput = false;
@@ -187,15 +184,11 @@ public class User_Image_Editor {
             userImage.random_noise(userNum);
         }
 
-//        userImage.printPixels();
-
         // PrintWriter object will take the adjusted image and write it to the specified user output file
         try {
             PrintWriter printWriter = new PrintWriter(userOutputFile, "UTF-8");
             printWriter.println(userImage.getMagic());
-//            printWriter.println();
             printWriter.println(userImage.getWidth() + " " + userImage.getHeight());
-//            printWriter.println();
             printWriter.println(userImage.getDepth());
 
             int[][][] pixels = userImage.getPixels();
